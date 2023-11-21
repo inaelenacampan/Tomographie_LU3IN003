@@ -1,5 +1,5 @@
 """
-		Fonction principale
+        Fonction principale
 """
 
 from lecture import *
@@ -19,10 +19,10 @@ print("Methode choisie : ")
 methode = int(input())
 
 if (methode != 3) :
-	print("Numero du fichier .txt (contenant l'instance a resoudre) : ")
-	i = int(input())
+    print("Numero du fichier .txt (contenant l'instance a resoudre) : ")
+    i = int(input())
 
-while(methode!=3 and (i>=0 and i<17)):
+while(methode!=3 and (i>=0)):
     resolution_utilisateur(methode,i)
 
     print("Methode choisie : ")

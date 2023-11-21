@@ -40,41 +40,41 @@ from time import *
 def calcul_temps():
     &#34;&#34;&#34;Fonction de calcul du temps d&#39;execution des deux methodes sur les instances donnees.
         Elle cree un fichier temps.txt qui contient le tableau des temps d&#39;execution des differentes instances selon la methode (complete ou incomplete)&#34;&#34;&#34;
-    
+
     # tableau des resulatats 
     resultats = []
-    
+
     # on parcourt la totalite des fichier
     for i in range(0, 17):
         # nom du fichier
         path_fichier = &#34;instances/&#34;+str(i)+&#34;.txt&#34;
-        
+
         # creation de l&#39;instance
         instance = Instance(path_fichier)
-        
+
         # creation des grilles
-        
+
         grille_coloree1 = Grille(instance.N, instance.M)
         # methode incomplete de resolution
         t1 = time()
         (ok1, grille_coloree1.matrice) = ColoreGrille(grille_coloree1.matrice, instance.tab_lignes, instance.tab_colonnes)
         t2 = time()
-        
+
         grille_coloree2 = Grille(instance.N, instance.M)
-        
+
         # methode complete de resolution
         t3 = time()
         (ok2, grille_coloree2.matrice) = Enumeration(grille_coloree2.matrice,instance.tab_lignes,instance.tab_colonnes)
         t4 = time()
-        
+
         # on retourne les temps de calculs ainsi qu&#39;un boolean qui nous indique si la resolution est bien reussie
         # a colorier la grille / on a trouve une incoherence / on arrive pas a conclure 
         resultats.append([ok1, t2-t1, ok2, t4-t3])
 
     return resultats
-        
-        
-    
+
+
+
 def resolution_utilisateur(option,i):
     &#34;&#34;&#34;
         Fonction d&#39;iteraction avec l&#39;utilisateur.
@@ -91,12 +91,16 @@ def resolution_utilisateur(option,i):
     grille = Grille(instance.N, instance.M)
 
     if (option == 1):
+        t1 = time()
         (ok, grille.matrice) = ColoreGrille(grille.matrice, instance.tab_lignes, instance.tab_colonnes)
-        print(&#34;Resultat : &#34; + str(ok) + &#34;\n&#34;)
+        t2 = time()
+        print(&#34;Resultat : &#34; + str(ok) + &#34;temps de calcul : &#34;+str(t2-t1)+&#34;\n&#34;)
 
     elif (option == 2):
+        t1 = time()
         (ok,grille.matrice) = Enumeration(grille.matrice,instance.tab_lignes,instance.tab_colonnes)
-        print(&#34;Resultat : &#34; + str(ok) + &#34;\n&#34;)
+        t2 = time()
+        print(&#34;Resultat : &#34; + str(ok) + &#34;temps de calcul : &#34;+str(t2-t1) + &#34;\n&#34;)
 
     grille.matrice = grille.matrice
     afficher_grille(grille)</code></pre>
@@ -122,33 +126,33 @@ Elle cree un fichier temps.txt qui contient le tableau des temps d'execution des
 <pre><code class="python">def calcul_temps():
     &#34;&#34;&#34;Fonction de calcul du temps d&#39;execution des deux methodes sur les instances donnees.
         Elle cree un fichier temps.txt qui contient le tableau des temps d&#39;execution des differentes instances selon la methode (complete ou incomplete)&#34;&#34;&#34;
-    
+
     # tableau des resulatats 
     resultats = []
-    
+
     # on parcourt la totalite des fichier
     for i in range(0, 17):
         # nom du fichier
         path_fichier = &#34;instances/&#34;+str(i)+&#34;.txt&#34;
-        
+
         # creation de l&#39;instance
         instance = Instance(path_fichier)
-        
+
         # creation des grilles
-        
+
         grille_coloree1 = Grille(instance.N, instance.M)
         # methode incomplete de resolution
         t1 = time()
         (ok1, grille_coloree1.matrice) = ColoreGrille(grille_coloree1.matrice, instance.tab_lignes, instance.tab_colonnes)
         t2 = time()
-        
+
         grille_coloree2 = Grille(instance.N, instance.M)
-        
+
         # methode complete de resolution
         t3 = time()
         (ok2, grille_coloree2.matrice) = Enumeration(grille_coloree2.matrice,instance.tab_lignes,instance.tab_colonnes)
         t4 = time()
-        
+
         # on retourne les temps de calculs ainsi qu&#39;un boolean qui nous indique si la resolution est bien reussie
         # a colorier la grille / on a trouve une incoherence / on arrive pas a conclure 
         resultats.append([ok1, t2-t1, ok2, t4-t3])
@@ -182,12 +186,16 @@ Elle est utiliser pour le main.py .</p></div>
     grille = Grille(instance.N, instance.M)
 
     if (option == 1):
+        t1 = time()
         (ok, grille.matrice) = ColoreGrille(grille.matrice, instance.tab_lignes, instance.tab_colonnes)
-        print(&#34;Resultat : &#34; + str(ok) + &#34;\n&#34;)
+        t2 = time()
+        print(&#34;Resultat : &#34; + str(ok) + &#34;temps de calcul : &#34;+str(t2-t1)+&#34;\n&#34;)
 
     elif (option == 2):
+        t1 = time()
         (ok,grille.matrice) = Enumeration(grille.matrice,instance.tab_lignes,instance.tab_colonnes)
-        print(&#34;Resultat : &#34; + str(ok) + &#34;\n&#34;)
+        t2 = time()
+        print(&#34;Resultat : &#34; + str(ok) + &#34;temps de calcul : &#34;+str(t2-t1) + &#34;\n&#34;)
 
     grille.matrice = grille.matrice
     afficher_grille(grille)</code></pre>

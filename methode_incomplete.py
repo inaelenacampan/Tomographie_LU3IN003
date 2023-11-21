@@ -10,30 +10,30 @@ from lecture import *
 
 def valeur_T(T, sequence, j, l) :
     """
-        Focntion qui retourne vrai s'il est possible de colorier, pour une ligne donnee, les j+1 premieres cases avec la sous-sequence des l premiers blocs de la ligne.
+        Fonction qui retourne vrai s'il est possible de colorier, pour une ligne donnee, les j+1 premieres cases avec la sous-sequence des l premiers blocs de la ligne.
         Hypothese : le tableau T initialisé avec -1 pour toutes les cases.
     """
 
     # Cas parametres incompatibles
     if (j < 0) or (l < 0) : 
             return False
-    
+
     # Cas valeur deja calculee
     elif (T[j][l]!=VIDE):
             return T[j][l]
-    
+
     # Cas 1 : sequence vide 
     elif (l == 0) : # cas 1 
             return True
-    
+
     # Cas 2a : sequence trop longue pour le nombre de cases
     elif (j < sequence[l - 1] - 1) :
             return False
-    
+
     # Cas 2b : la taille de la sequence et le nombre de cases sont egaux
     elif (j == sequence[l - 1] - 1) :
             return (l == 1)
-    
+
     # Cas 2c : appel recursif
     else : 
             T[j][l] = (valeur_T(T, sequence, j - 1, l)) or (valeur_T(T, sequence, j - sequence[l - 1] - 1, l - 1))
@@ -57,11 +57,11 @@ def valeur_T_couleur(T, sequence, j, l, C) :
         Remarque : il s'agit d'un algorithme de programmation dynamique avec memoisation.
         Hypothese : C est un tableau qui contient des informations sur les cases qui sont deja coloriees dans la ligne.
     """
-    
+
     # Cas si la valeur est deja connue
     if (T[j][l] != -1) : 
         return T[j][l]
-    
+
     # Cas 1 : on teste si on retrouve une case noire dans une ligne qui devrait etre entierement blanche
     # si c'est le cas, il s'agit d'une incoherence
     elif (l == 0) :
@@ -74,7 +74,7 @@ def valeur_T_couleur(T, sequence, j, l, C) :
     elif ((j == sequence[0] - 1) and (l == 1)) :
         T[j][l] = presenceCouleur(C,0,j,BLANC)
         return T[j][l]
-    
+
     # Incoherence sur les donnees en entree
     # Remarque : il est important que ce cas soit apres le cas 2b, sinon on risque de ne pas prendre en compte le cas 2b
     elif (j < 0) or (l < 0):
@@ -110,7 +110,7 @@ def valeur_T_couleur(T, sequence, j, l, C) :
             res2 = valeur_T_couleur(T, sequence, j - sequence[l - 1] - 1 , l - 1, C)
 
         T[j][l] = (res1 or res2)
-    
+
     return T[j][l]
 
 
@@ -130,12 +130,12 @@ def ColoreLig(G, M, seq_lignes, i, nouveaux_col) :
     for k in range(M):
 
         if (C[k] == VIDE):
-            
+
             # on teste la possibilite de colorier la case en blanc
             T = [[-1 for _ in range(longueur+1)] for _ in range(M)]
             C[k] = BLANC
             est_blanc = valeur_T_couleur(T, seq_lignes[i], M - 1, longueur, C)
-        
+
             # on teste la possibilite de colorier la case en noir
             T = [[-1 for _ in range(longueur+1)] for _ in range(M)]
             C[k] = NOIR
@@ -171,7 +171,7 @@ def ColoreCol(G, N, seq_colonnes, j, nouveaux_lig):
         Hypothese : seq_colonnes est le tableau de sequences de colonnes.
                     nouveaux_col est la liste des lignes a explorer apres la coloration (totale ou partielle) de la colonne j.
     """
-    
+
     # taille de la sequence pour la colonne j
     longueur = len(seq_colonnes[j])
 
@@ -228,7 +228,7 @@ def ColoreGrille(G, seq_lignes, seq_colonnes) :
 
     # on travaille sur une copie de la matrice G representant la grille
     newG = deepcopy(G)
-    
+
     # taille de la matrice
     N = len(seq_lignes)
     M = len(seq_colonnes)
@@ -268,7 +268,7 @@ def ColoreGrille(G, seq_lignes, seq_colonnes) :
             # le puzzle n'a pas de solution
             if ok == FAUX : 
                 return (FAUX,newG)
-        
+
     # on teste si la grille est entierement coloriee
     for i in range(N):
         for j in range(M):

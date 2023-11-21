@@ -15,7 +15,7 @@ def affichage_matrice(matrice,N,M):
         Fonction d'affichage d'une matrice NxM sur le terminal.
         Utilisee pour debogage et tests.
     """
-    
+
     for i in range(N):
         for j in range(M):
             if matrice[i][j]==BLANC:

@@ -13,31 +13,31 @@ def Enumeration(G,seq_lignes,seq_colonnes) :
     """
         Fontion de resolution complete de l'instance.
         Elle indique si la resolution de l'instance est possible ou non et retourne la matrice coloriee completement.
-        
+
     """
-    
+
     # dimensions de la matrice (grille)
     N = len(G)
     M = len(G[0])
-    
+
     # algorithme de propagation
     (ok, new_G_mat) = ColoreGrille(G,seq_lignes,seq_colonnes)
-    
+
     # le puzzle n'a pas de solution
     if ok == FAUX :
         V = [[VIDE for _ in range(M)] for _ in range(N)]
         return (FAUX,V)
-    
+
     else :
 
         # premiere case indeterminee (==VIDE)
         k = CaseIndeterminee(new_G_mat,0)
-        
+
         # appel recursif avec l'hyp que la case coloriee en blanc
         (ok1, new_G_mat1) = EnumRec(new_G_mat,k,BLANC,seq_lignes,seq_colonnes) 
         if ok1 == VRAI :
             return (ok1, new_G_mat1)
-        
+
         # car la fonction ne retourne rien si on met en or
         # appel recursif avec l'hyp que la case est coloriee en noir
         (ok2,new_G_mat2) = EnumRec(new_G_mat,k,NOIR,seq_lignes,seq_colonnes)
@@ -62,17 +62,17 @@ def EnumRec(G,k,c,seq_lignes,seq_colonnes):
     M = len(G[0])
     if k == N*M :
         return (VRAI,G)
-    
+
     i = floor(k/M) 
     j = k%M
     (ok, new_G) = ColorierEtPropager(G,i,j,c,seq_lignes,seq_colonnes)
-    
+
     if ok == FAUX :
-        
+
         V = [[VIDE for _ in range(M)] for _ in range(N)]
         return (FAUX,V)
     elif ok == VRAI :
-        
+
         return (VRAI,new_G)
     else :
         # on avance a la prochaine case indeterminee
@@ -81,7 +81,7 @@ def EnumRec(G,k,c,seq_lignes,seq_colonnes):
         if ok1 == VRAI :
             return (ok1, new_G_mat1)
 
-        
+
         (ok2,new_G_mat2) = EnumRec(new_G,new_k,NOIR,seq_lignes,seq_colonnes)
         if ok2 == VRAI :
             return (ok2, new_G_mat2)
@@ -100,13 +100,13 @@ def ColorierEtPropager(G, i, j, c, seq_lignes, seq_colonnes) :
         Elle indique si la resolution de l'instance est possible ou non et retourne la matrice coloriee completement ou partiellement.
         Hypothese : la matrice G est partiellement coloriee en entree.
     """
-    
+
     # une structure tres proche de ColoreGrille (la methode partielle de resolution)
     newG = deepcopy(G)
     # dimensions de la matrice(grille)
     N = len(seq_lignes)
     M = len(seq_colonnes)
-    
+
     # listes de lines et colonnes a voir : au debut de l'algorithme, on doit voir i et j
     LignesAVoir = [i]
     ColonnesAVoir = [j]
@@ -114,16 +114,16 @@ def ColorierEtPropager(G, i, j, c, seq_lignes, seq_colonnes) :
 
     # on commence par colorier la case (i,j) par la couleur c (parametres)
     newG[i][j] = c
-    
+
     while (LignesAVoir != [] or ColonnesAVoir != []) :
-        
+
         # on essaye de colorier les lignes
         for i in LignesAVoir :
-            
+
             # liste des nouvelles colonnes a voir et a rajouter a ColonnesAVoir
             nouveaux_col = []
             (ok,newG)= ColoreLig(newG, M, seq_lignes, i, nouveaux_col)
-            
+
             # ajout des colonnes
             for x in nouveaux_col :
                 if x not in ColonnesAVoir :
@@ -172,13 +172,13 @@ def CaseIndeterminee(G_mat,k):
     M = len(G_mat[0])
     a = floor(k/M)
     b = k%M
-    
+
     # on verifice les cases 
     for i in range(a,N) :
         for j in range(b,M):
             if G_mat[i][j] == VIDE :
                 return M*i + j
-            
+
     # cas si aucune case est vide
     return M*N
 
