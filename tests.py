@@ -65,13 +65,13 @@ def resolution_utilisateur(option,i):
         t1 = time()
         (ok, grille.matrice) = ColoreGrille(grille.matrice, instance.tab_lignes, instance.tab_colonnes)
         t2 = time()
-        print("Resultat : " + str(ok) + "temps de calcul : "+str(t2-t1)+"\n")
+        print("Resultat : " + str(ok) + " temps de calcul : "+str(t2-t1)+"\n")
 
     elif (option == 2):
         t1 = time()
         (ok,grille.matrice) = Enumeration(grille.matrice,instance.tab_lignes,instance.tab_colonnes)
         t2 = time()
-        print("Resultat : " + str(ok) + "temps de calcul : "+str(t2-t1) + "\n")
+        print("Resultat : " + str(ok) + " temps de calcul : "+str(t2-t1) + "\n")
 
     grille.matrice = grille.matrice
     afficher_grille(grille)

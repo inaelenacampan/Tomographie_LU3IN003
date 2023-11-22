@@ -46,7 +46,7 @@ def Enumeration(G,seq_lignes,seq_colonnes) :
 
     if ok1 == FAUX and ok2 == FAUX :
         # incoherence, car la case ne peut etre ni blanche, ni noire
-        V = [[VIDE for _ in range(M)] for _ in range(G.N)]
+        V = [[VIDE for _ in range(M)] for _ in range(N)]
         return (FAUX,V)
     else :
         print("Erreur : ok1 = "+str(ok1)+" et ok 2 = "+str(ok2))
